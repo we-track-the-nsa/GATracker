@@ -8,7 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class CreateAccount extends AppCompatActivity {
+
     private EditText FirstName;
     private EditText LastName;
     private EditText Email;
@@ -32,6 +36,10 @@ public class CreateAccount extends AppCompatActivity {
         LoginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String email = Email.getText().toString();
+                String pass = Password.getText().toString();
+
                 intent = new Intent(CreateAccount.this,Login.class);
                 startActivity(intent);
             }

@@ -1,13 +1,21 @@
 package com.wetrackthensa.chimmy.gatracker;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,6 +23,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class Login extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+
+
     private Intent intent,crIntent;
     private EditText Username;
     private EditText Password;
@@ -68,17 +80,39 @@ public class Login extends AppCompatActivity {
     }
 
     private void validate(){
-        String login = readFile();
 
-        if(login != null){
-            String[] values = login.split(":");
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        if (mAuth.getCurrentUser() != null ){
             intent = new Intent(Login.this,MainActivity.class);
             startActivity(intent);
-        } else {
-            //display file saved message
-            Toast.makeText(getBaseContext(), "Could not validate account.",
-                    Toast.LENGTH_SHORT).show();
         }
+
+        String login = readFile();
+        if(login != null) {
+            String[] values = login.split(":");
+            mAuth.signInWithEmailAndPassword(values[0], values[1])
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("LOGIN", "signInWithEmail:success");
+                            intent = new Intent(Login.this,MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("LOGIN", "signInWithEmail:failure", task.getException());
+                            Toast.makeText(Login.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
+        }
+        
     }
 
     @Override
