@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GATracker</string>
+    <string name="button">Button</string>
+    <string name="user_feed">User Feed</string>
+    <string name="agency_search">Agency Search</string>
+    <string name="settings">Settings</string>
 </resources>
