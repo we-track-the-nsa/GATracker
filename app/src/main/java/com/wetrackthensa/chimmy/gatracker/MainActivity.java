@@ -5,33 +5,63 @@ import android.os.Bundle;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import javax.annotation.Nullable;
+
+import io.opencensus.tags.Tag;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG="Firelog";
+    private RecyclerView mMainList;
+    private FirebaseFirestore mFirestore;
+    private UpdateListAdapter updateListAdapter;
+    private List<updates> updatesList;
+protected void onCreate(Bundle savedInstanceState)
+{
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    updatesList=new ArrayList<>();
+    updateListAdapter=new UpdateListAdapter(updatesList);
+    mMainList= (RecyclerView) findViewById(R.id.main_list);
+    mMainList.setHasFixedSize(true);
+    mMainList.setLayoutManager(new LinearLayoutManager(this));
+    mMainList.setAdapter(updateListAdapter);
+   mFirestore=FirebaseFirestore.getInstance();
+   mFirestore.collection("CBP Updates").addSnapshotListener(new EventListener<QuerySnapshot>() {
+       @Override
+       public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
+           if(e !=null)
+           {
+               Log.d(TAG,"Error: "+e.getMessage());
 
-    public static String readFileAsString(String fileName) {
-        String text = "";
-        try {
-            text = new String(Files.readAllBytes(Paths.get(fileName)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+           }
+           for(DocumentChange doc : documentSnapshots.getDocumentChanges())
+           {
+               if(doc.getType()==DocumentChange.Type.ADDED)
+               {
+                   updates ups=doc.getDocument().toObject(updates.class);
+                   updatesList.add(ups);
+                   updateListAdapter.notifyDataSetChanged();
+               }
+           }
+       }
+   });
+}
 
-        return text;
-    }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        /*String login = readFileAsString("login");
-        if(login.equals("")){
-            Intent intent = new Intent(MainActivity.this, Login.class);
-            startActivity(intent);
-        }*/
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
 }
