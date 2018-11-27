@@ -18,7 +18,7 @@
         android:layout_marginBottom="59dp"></android.support.v7.widget.RecyclerView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -28,7 +28,7 @@
         android:text="FEED" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/sett"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -48,14 +48,16 @@
         android:text="SEARCH " />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Welcome Vijit Singh" />
+        android:text="Welcome Vijit Singh"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

@@ -18,6 +18,7 @@
         <activity android:name=".CreateAccount"></activity>
         <activity android:name=".test" />
         <activity android:name=".agencypage" />
+        <activity android:name=".settings" />
 
     </application>
 </manifest>

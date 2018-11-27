@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private UpdateListAdapter updateListAdapter;
     private List<updates> updatesList;
     private Intent intent,crIntent;
-    private Button search;
+    private Button search,set;
 
     protected void onCreate(Bundle savedInstanceState)
 {
@@ -74,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
                    startActivity(crIntent);
                }
            });
+           set=findViewById(R.id.sett);
+           set.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   intent = new Intent(MainActivity.this,settings.class);
+                   startActivity(intent);
+               }
+           });
+
 
 
        }
