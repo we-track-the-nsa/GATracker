@@ -26,6 +26,7 @@ public UpdateListAdapter(List <updates> updatesList)
     public void onBindViewHolder( ViewHolder viewHolder, int i) {
         viewHolder.nameText.setText(updatesList.get(i).getsourceh());
         viewHolder.updateText.setText(updatesList.get(i).getbodyh());
+        viewHolder.sourceText.setText(updatesList.get(i).getorg());
 
     }
 
@@ -38,11 +39,14 @@ public UpdateListAdapter(List <updates> updatesList)
         View mView;
         public TextView nameText;
         public TextView updateText;
+        public TextView sourceText;
         public ViewHolder(View itemView) {
             super(itemView);
             mView=itemView;
-            nameText=(TextView)mView.findViewById(R.id.agency_name);
-            updateText=(TextView)mView.findViewById((R.id.agency_update));
+            nameText=(TextView)mView.findViewById(R.id.agency_text);
+            updateText=(TextView)mView.findViewById((R.id.update_text));
+            sourceText=(TextView)mView.findViewById((R.id.source_text));
+
         }
     }
 }

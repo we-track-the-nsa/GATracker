@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,8 +33,13 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore mFirestore;
     private UpdateListAdapter updateListAdapter;
     private List<updates> updatesList;
-protected void onCreate(Bundle savedInstanceState)
+    private Intent intent,crIntent;
+    private Button search;
+
+    protected void onCreate(Bundle savedInstanceState)
 {
+
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     updatesList=new ArrayList<>();
@@ -42,7 +49,7 @@ protected void onCreate(Bundle savedInstanceState)
     mMainList.setLayoutManager(new LinearLayoutManager(this));
     mMainList.setAdapter(updateListAdapter);
    mFirestore=FirebaseFirestore.getInstance();
-   mFirestore.collection("CBP Updates").addSnapshotListener(new EventListener<QuerySnapshot>() {
+   mFirestore.collection("All Updates").addSnapshotListener(new EventListener<QuerySnapshot>() {
        @Override
        public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
            if(e !=null)
@@ -59,6 +66,16 @@ protected void onCreate(Bundle savedInstanceState)
                    updateListAdapter.notifyDataSetChanged();
                }
            }
+           search=findViewById(R.id.button3);
+           search.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   crIntent = new Intent(MainActivity.this,test.class);
+                   startActivity(crIntent);
+               }
+           });
+
+
        }
    });
 }
