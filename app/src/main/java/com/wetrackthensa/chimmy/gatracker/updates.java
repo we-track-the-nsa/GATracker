@@ -22,11 +22,13 @@ public class updates {
         return body;
     }
 
+    public String getorg(){ return agency; }
+
     public void setbody(String body) {
         this.body = body;
     }
 
-    String source,body;
+    String source,body,agency;
 
 
 }
