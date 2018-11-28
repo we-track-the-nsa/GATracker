@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("LOGIN", "signInWithEmail:success");
-                        intent = new Intent(Login.this,MainActivity.class);
+                        intent = new Intent(Login.this,settings.class);
                         startActivity(intent);
                     } else {
                         // If sign in fails, display a message to the user.
