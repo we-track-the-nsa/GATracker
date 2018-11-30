@@ -33,26 +33,28 @@ public class settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prioritieslist);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
-        Spinner spinner2 = (Spinner) findViewById(R.id.spinner8);
-        Spinner spinner3 = (Spinner) findViewById(R.id.spinner3);
-        Spinner spinner4 = (Spinner) findViewById(R.id.spinner4);
-        Spinner spinner5 = (Spinner) findViewById(R.id.spinner7);
-        Spinner spinner6 = (Spinner) findViewById(R.id.spinner5);
-        Spinner spinner7 = (Spinner) findViewById(R.id.spinner6);
+        // TODO reorder to not skip no spinner 1
+        Spinner JDspinner = (Spinner) findViewById(R.id.spinner4);
+        Spinner DODspinner = (Spinner) findViewById(R.id.spinner2);
+        Spinner CBPspinner = (Spinner) findViewById(R.id.spinner5);
+        Spinner FBIspinner = (Spinner) findViewById(R.id.spinner6);
+        Spinner NSAspinner = (Spinner) findViewById(R.id.spinner7);
+        Spinner ICEspinner = (Spinner) findViewById(R.id.spinner3);
+        Spinner CIAspinner = (Spinner) findViewById(R.id.spinner8);
+        Button submit = (Button) findViewById(R.id.submit_button);
 
 
     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.planets_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner.setAdapter(adapter);
-        spinner2.setAdapter(adapter);
-        spinner3.setAdapter(adapter);
-        spinner4.setAdapter(adapter);
-        spinner5.setAdapter(adapter);
-        spinner6.setAdapter(adapter);
-        spinner7.setAdapter(adapter);
+    JDspinner.setAdapter(adapter);
+    DODspinner.setAdapter(adapter);
+    CBPspinner.setAdapter(adapter);
+    FBIspinner.setAdapter(adapter);
+    NSAspinner.setAdapter(adapter);
+    ICEspinner.setAdapter(adapter);
+    CIAspinner.setAdapter(adapter);
 
     }
 }

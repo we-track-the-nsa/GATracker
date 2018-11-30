@@ -25,6 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import javax.annotation.Nullable;
 
 import io.opencensus.tags.Tag;
+import com.google.firebase.firestore.Query.Direction;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
     mMainList.setLayoutManager(new LinearLayoutManager(this));
     mMainList.setAdapter(updateListAdapter);
    mFirestore=FirebaseFirestore.getInstance();
-   mFirestore.collection("All Updates").addSnapshotListener(new EventListener<QuerySnapshot>() {
+   final String myCollection = "CIA Updates";
+   mFirestore.collection(myCollection).orderBy("time", Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
        @Override
        public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
            if(e !=null)
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                if(doc.getType()==DocumentChange.Type.ADDED)
                {
                    updates ups=doc.getDocument().toObject(updates.class);
+                   ups.setagency(myCollection);
                    updatesList.add(ups);
                    updateListAdapter.notifyDataSetChanged();
                }
