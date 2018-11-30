@@ -49,8 +49,15 @@ public class MainActivity extends AppCompatActivity {
     mMainList.setHasFixedSize(true);
     mMainList.setLayoutManager(new LinearLayoutManager(this));
     mMainList.setAdapter(updateListAdapter);
-   mFirestore=FirebaseFirestore.getInstance();
+    mFirestore=FirebaseFirestore.getInstance();
+
+    // get user info
+    
+    // pull collections into one collection
+    // push collection into UpdateListAdapter
+
    final String myCollection = "CIA Updates";
+
    mFirestore.collection(myCollection).orderBy("time", Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
        @Override
        public void onEvent(@Nullable QuerySnapshot documentSnapshots, @Nullable FirebaseFirestoreException e) {
