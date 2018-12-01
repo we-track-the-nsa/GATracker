@@ -1,5 +1,6 @@
 package com.wetrackthensa.chimmy.gatracker;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.io.IOException;
@@ -15,7 +16,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,9 +41,12 @@ public class MainActivity extends AppCompatActivity {
     private List<updates> updatesList;
     private Intent intent,crIntent;
     private Button search,set;
+    private FirebaseAuth mAuth;
+    private priority mypriority = new priority();
 
     protected void onCreate(Bundle savedInstanceState)
 {
+    mAuth = FirebaseAuth.getInstance();
 
 
     super.onCreate(savedInstanceState);
@@ -52,7 +60,26 @@ public class MainActivity extends AppCompatActivity {
     mFirestore=FirebaseFirestore.getInstance();
 
     // get user info
-    
+
+    DocumentReference docRef = mFirestore.collection("Users").document(mAuth.getCurrentUser().getEmail());
+    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                    priority temp = document.toObject(priority.class);
+                    mypriority.copyPriorities(temp);
+                } else {
+                    Log.d(TAG, "No such document");
+                }
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
+            }
+        }
+    });
+    //Log.d(TAG, "data check: CBP is " + mypriority.isCBP());
     // pull collections into one collection
     // push collection into UpdateListAdapter
 

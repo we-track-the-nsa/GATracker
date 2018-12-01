@@ -32,9 +32,12 @@ public class Login extends AppCompatActivity {
     private EditText Password;
     private Button Login;
     private TextView CreateLink;
+    public String email;
+
 
     private void validate(String email, String pass){
 
+        this.email = email;
         if (mAuth.getCurrentUser() != null ){
             intent = new Intent(Login.this,MainActivity.class);
             startActivity(intent);
