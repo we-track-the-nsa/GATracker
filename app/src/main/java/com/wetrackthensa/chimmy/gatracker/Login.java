@@ -80,7 +80,7 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // REMOVE sign out on start REMOVE
-        mAuth.signOut();
+        // mAuth.signOut();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);

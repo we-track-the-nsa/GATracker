@@ -27,6 +27,8 @@ public class test extends AppCompatActivity {
     private EditText agencyname;
     private Button search_b;
     private Intent intent;
+    private Button feed;
+    private Button settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,9 @@ public class test extends AppCompatActivity {
         setContentView(R.layout.search);
        agencyname=findViewById(R.id.agency_name);
         search_b=findViewById(R.id.search_b);
+        feed=findViewById(R.id.button);
+        settings=findViewById(R.id.button2);
+
        search_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +47,21 @@ public class test extends AppCompatActivity {
                 intent.putExtra("user",user);
 
 
+                startActivity(intent);
+            }
+        });
+
+        feed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(test.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(test.this,settings.class);
                 startActivity(intent);
             }
         });

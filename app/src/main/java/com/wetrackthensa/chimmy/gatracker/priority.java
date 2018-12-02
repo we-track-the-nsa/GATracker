@@ -1,5 +1,8 @@
 package com.wetrackthensa.chimmy.gatracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class priority {
     boolean CBP, CIA, DeptofDefense, FBI, ICE, NSAGov, TheJusticeDept;
 
@@ -34,6 +37,30 @@ public class priority {
         this.ICE = ICE;
         this.NSAGov = NSAGov;
         this.TheJusticeDept = TheJusticeDept;
+    }
+
+    public int howManyTrue(){
+        int sum = 0;
+        if(CBP) sum++;
+        if(CIA) sum++;
+        if(DeptofDefense) sum++;
+        if(FBI) sum++;
+        if(ICE) sum++;
+        if(NSAGov) sum++;
+        if(TheJusticeDept) sum++;
+        return sum;
+    }
+
+    public List<String> whatsTrue(){
+        List<String> agencyList = new ArrayList<>();
+        if(CBP) agencyList.add("CBP");
+        if(CIA) agencyList.add("CIA");
+        if(DeptofDefense) agencyList.add("DeptofDefense");
+        if(FBI) agencyList.add("FBI");
+        if(ICE) agencyList.add("ICE");
+        if(NSAGov) agencyList.add("NSAGov");
+        if(TheJusticeDept) agencyList.add("TheJusticeDept");
+        return agencyList;
     }
 
     public boolean isCBP() {

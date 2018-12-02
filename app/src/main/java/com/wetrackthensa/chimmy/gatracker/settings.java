@@ -41,6 +41,7 @@ public class settings extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
+    private Intent intent;
 @Override
     protected void onCreate(Bundle savedInstanceState) {
         mFirestore = FirebaseFirestore.getInstance();
@@ -109,6 +110,8 @@ public class settings extends AppCompatActivity {
                             }
                         });
             }
+            intent = new Intent(settings.this,MainActivity.class);
+            startActivity(intent);
         }
     });
 

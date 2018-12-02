@@ -5,12 +5,12 @@ public class updates {
     {
 
     }
-    public updates(String source, String body, String time, String title) {
+    public updates(String source, String body, String time, String title, String agency) {
         this.source = source;
         this.body = body;
         this.time = time;
         this.title = title;
-        this.agency = "";
+        this.agency = agency;
     }
 
     public String getsourceh() {
